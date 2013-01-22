@@ -26,7 +26,7 @@ class CommonsFilter {
       foreach ($rules as $rule) {
         $param = str_replace('.', '_', $rule['field']);
         $where .= sprintf(self::getFilterType($rule['data']), $rule['field'], $param, $i, $groupOp);
-        $parameters[sprintf('%s_%s', $param, $i++)] = sprintf(self::getFilterType2($rule['data']), strtolower($rule['data']));
+        $parameters[sprintf('%s_%s', $param, $i++)] = sprintf(self::getFilterValue($rule['data']), strtolower($rule['data']));
       }
       $where = substr_replace($where, "", strrpos($where, $groupOp), strlen($groupOp));
     }
@@ -45,7 +45,7 @@ class CommonsFilter {
     return $sintax;
   }
 
-  protected static function getFilterType2($param) {
+  protected static function getFilterValue($param) {
     $dateParser = date_parse($param);
     if (sizeof($dateParser['errors']) == 0) {
       $sintax = '%s';
