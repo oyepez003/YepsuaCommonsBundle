@@ -21,7 +21,7 @@ class ObjectUtil {
    * 
    * @param type $entities
    * @param type $pattern
-   * @return type 
+   * @return string 
    */
   public static function entityToKeyValue($entities, $pattern ='"%KEY%":"%VALUE%"'){
     $toStringVal = "";
@@ -32,5 +32,30 @@ class ObjectUtil {
        $toStringVal .= $_pattern;
     }
     return $toStringVal;
-  }   
+  }
+  
+  /**
+   * 
+   * @param type $entities
+   * @param array $config
+   * @return string
+   */
+  public static function collectionToString($entities, array $config = array('pattern' => '%s,','max' => 4, 'more_ind' => '...')){
+    $toStringVal = "";
+    if(sizeof($entities) > 0){
+      $max = (sizeof($entities) > $config['max']) ? $config['max'] : sizeof($entities);
+      
+      for ($index = 0; $index < $max; $index++) {
+         $toStringVal .= sprintf($config['pattern'], $entities[$index]->__toString());
+      }
+
+      if(sizeof($entities) > $max){
+        $toStringVal .= $config['more_ind'];
+      }else{
+        $toStringVal = substr($toStringVal, 0, -1);
+      }
+      
+    }
+    return $toStringVal;
+  }
 }
