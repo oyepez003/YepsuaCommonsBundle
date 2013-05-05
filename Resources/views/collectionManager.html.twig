@@ -1,0 +1,5 @@
+{% if entities is iterable %}
+    {% block manage_collection %}{% endblock %}
+{% else %}
+    {% block manage_object %}{% endblock %}
+{% endif %}

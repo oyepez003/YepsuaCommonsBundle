@@ -1,0 +1,11 @@
+{% extends "YepsuaCommonsBundle::collectionManager.html.twig" %}
+{% block manage_collection %}
+    <ul class="collection_list" style="border-style: outset;border-width: 0 0 0 1px;">
+      {% for entity in entities %}
+          <li>{{ entity }}</li>
+      {% endfor %}
+    </ul>
+{% endblock %}
+{% block manage_object %}
+  {{ entities }}
+{% endblock %}
