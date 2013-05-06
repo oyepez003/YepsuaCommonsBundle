@@ -35,5 +35,17 @@ class Dao {
     }
     return $query;
   }
+  
+  public static function count($repository, $entityName = null){
+    return self::countQuery($repository, $entityName)->getQuery()->getSingleScalarResult();
+  }
+  
+  public static function countQuery($repository, $entityName = null){
+    if($entityName === null){
+       $entityName = $repository->getClassName();
+       $entityName = substr_replace($entityName,':', strrpos($entityName, '\\'), 1); 
+    }
+    return $repository->createQueryBuilder($entityName)->select(sprintf('COUNT(%s)',$entityName));
+  }
 
 }

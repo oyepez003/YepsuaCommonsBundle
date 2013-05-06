@@ -135,7 +135,7 @@ class Document
     {
         return null === $this->path
             ? null
-            : sprintf('<div align="center"><img width="60" align="center" height="60" src="/open-skool/web/%s"></div>', $this->getWebPath());
+            : sprintf('<div align="center"><img width="60" align="center" height="60" src="/symfony/web/%s"></div>', $this->getWebPath());
     }
     
     public function __toString(){
