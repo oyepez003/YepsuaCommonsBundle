@@ -1,0 +1,13 @@
+{% extends "YepsuaCommonsBundle::toUL.html.twig" %}
+{% block manage_collection %}
+    <ul class="collection_list" style="border-style: outset;border-width: 0 0 0 1px;">
+      {% for entity in entities %}
+          <li>
+            {% include 'YepsuaCommonsBundle::image.html.twig' with {'src': entity} %}
+          </li>
+      {% endfor %}
+    </ul>
+{% endblock %}
+{% block manage_object %}
+    {% include 'YepsuaCommonsBundle::image.html.twig' with {'src': entities} %}
+{% endblock %}

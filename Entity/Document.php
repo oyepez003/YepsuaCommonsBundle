@@ -14,6 +14,11 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 class Document
 {
     /**
+     * @var
+     */
+    protected $container;
+    
+    /**
      * @var integer
      *
      * @ORM\Column(name="id", type="integer")
@@ -33,18 +38,24 @@ class Document
             ? null
             : $this->getUploadDir().'/' . $this->path;
     }
-
+    
+    /**
+     * @return string The absolute directory path where uploaded documents 
+     * should be saved
+     */
     protected function getUploadRootDir()
     {
-        // the absolute directory path where uploaded
-        // documents should be saved
+        
         return __DIR__.'/../../../../../../web/'.$this->getUploadDir();
     }
-
+    
+    /**
+     * @return string get rid of the __DIR__ so it doesn't screw up when 
+     * displaying uploaded doc/image in the view.
+     */
     protected static function getUploadDir()
     {
-        // get rid of the __DIR__ so it doesn't screw up
-        // when displaying uploaded doc/image in the view.
+
         return 'uploads/documents';
     }
 
@@ -133,16 +144,13 @@ class Document
      */
     public function getPath()
     {
-        return null === $this->path
-            ? null
-            : sprintf('<div align="center"><img width="60" align="center" height="60" src="/symfony/web/%s"></div>', $this->getWebPath());
+        return $this->getWebPath();
     }
     
     public function __toString(){
       return $this->getPath();
     }
     
-
     /**
      * Get id
      *
@@ -159,14 +167,21 @@ class Document
       }
     }
     
-    public function postMapper(UploadedFile $file){
+    public function postMapper(UploadedFile $file, $name){
       $file->move(
           $this->getUploadRootDir(),
-          $file->getPath()
+          $name
       );
     }
         
     public function __construct(UploadedFile $file = null) {
       $this->uploadedFileMapper($file);
+    }
+    
+    public static function guessExtension(UploadedFile $file){
+        $fileName = $file->getClientOriginalName();
+        $fileName = strrev( $fileName );
+	$fileName = strrev(substr($fileName, 0, strpos($fileName, '.')));
+        return $fileName;
     }
 }

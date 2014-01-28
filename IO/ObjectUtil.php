@@ -9,12 +9,14 @@
 
 namespace Yepsua\CommonsBundle\IO;
 
+use \YsHTML as HTML;
+
 /**
  * ObjectUtil
  * @author Omar Yepez <omar.yepez@yepsua.com>
  */
 class ObjectUtil {
-  
+    
   /**
    * 
    * @param type $entities
@@ -71,5 +73,10 @@ class ObjectUtil {
       }
     }
     return $toStringVal;
+  }
+  
+  public static function __toHTMLImage__($src, $properties = null){
+      $format = HTML::getTagClosed('img', 'src="%src%" ' . $properties);
+      return str_replace('%src%', $src, $format);
   }
 }
