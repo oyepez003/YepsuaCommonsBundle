@@ -16,7 +16,16 @@ use Yepsua\CommonsBundle\Persistence\Filter\CommonsFilter;
  * @author Omar Yepez <omar.yepez@yepsua.com>
  */
 class Dao {
-
+  
+  /**
+   * 
+   * @param type $repository
+   * @param type $entityName
+   * @param type $orderBy
+   * @param type $sord
+   * @param type $filters
+   * @return \Doctrine\ORM\QueryBuilder
+   */
   public static function buildQuery($repository, $entityName, $orderBy = null, $sord = 'ASC', $filters = null) {
     $query = $repository->createQueryBuilder($entityName)
                         ->orderBy($orderBy, $sord);
