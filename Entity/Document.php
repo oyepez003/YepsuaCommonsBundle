@@ -13,44 +13,17 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 class Document
 {
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    private $id;
-    
-    /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $name;
+    protected $name;
     
-    private $uploadDir;
+    protected $uploadDir;
     
-    private $file;
+    protected $file;
     
     public function __construct(UploadedFile $file = null, $uploadDir = null) {
       $this->setFile($file);
       $this->setUploadDir($uploadDir);
-    }
-    
-    /**
-     * Get id
-     *
-     * @return integer 
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-    
-    /**
-     * 
-     * @param type $id
-     */
-    public function setId($id) {
-        $this->id = $id;
     }
     
     /**
@@ -161,13 +134,17 @@ class Document
     }
     
     public function __toString(){
-      return sprintf($this->getHTMLTemplate(), $this->getWebPath(), $this->getUploadDir(), $this->getName());
+      return sprintf($this->getHTMLTemplate(), $this->getURL());
     }
     
     public function getHTMLTemplate(){
         return '<div align="center">
-                    <img width="60" align="center" height="60" src="%s/%s/%s">
+                    <img width="60" align="center" height="60" src="%s">
                 </div>';
+    }
+    
+    public function getURL(){
+        return sprintf('%s/%s/%s', $this->getWebPath(), $this->getUploadDir(), $this->getName());
     }
     
     public function write(){
