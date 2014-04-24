@@ -3,7 +3,7 @@
     "version": "1.0.0",
     "description": "Yepsua Commons and Utils for Symfony2",
     "keywords": ["symfony2","extensions","commons","utils"],
-    "homepage": "http://smartwig.yepsua.com",
+    "homepage": "http://www.yepsua.com",
     "type": "symfony-bundle",
     "license": "MIT",
     "authors": [
